@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MakePlace save file updater</title>
+</head>
+<body>
+    <textarea id="json"></textarea>
+    <button onclick="convert()">Update</button>
+</body>
+<script>
+
+	function convert() {
+		const obj = JSON.parse(document.getElementById("json").value);
+
+		let i = 0;
+		obj.fixture.forEach(e => {
+			if (e.key.includes(":")) {
+				let split = e.key.split(":");
+				let value = obj.fixture[i]["value"]
+
+				obj.fixture[i]["level"] = split[0];
+				obj.fixture[i]["type"] = split[1];
+				obj.fixture[i]["name"] = value;
+				delete obj.fixture[i]["key"];
+				delete obj.fixture[i]["value"];
+			}
+			if (e.key === "Scale") {
+				obj.fixture[i]["interiorScale"] = e.value;
+				delete obj.fixture[i]["key"];
+				delete obj.fixture[i]["value"];
+			}
+			i++;
+		});
+
+		obj.interiorFurniture = obj.furniture;
+		delete obj.furniture;
+		let data = JSON.stringify(obj, null, 2);
+		download("build.js", data);
+	}
+
+
+	function download(filename, text) {
+		let element = document.createElement('a');
+		element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+		element.setAttribute('download', filename);
+
+		element.style.display = 'none';
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
+	}
+
+</script>
+<style>
+    textarea {
+        width: 100%;
+        height:80vh;
+    }
+
+    button {
+        width:100%;
+    }
+
+</style>
+</html>
