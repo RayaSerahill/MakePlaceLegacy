@@ -29,9 +29,8 @@ obj.fixture.forEach(e => {
 	i++;
 });
 
-let furn = obj.furniture;
+obj.interiorFurniture = obj.furniture;
 delete obj.furniture;
-obj.interiorFurniture = furn;
 
 let data = JSON.stringify(obj, null, 2);
 fs.writeFile(save + "\\" + name + '-updated.json', data, (err) => {
