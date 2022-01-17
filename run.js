@@ -22,7 +22,7 @@ obj.fixture.forEach(e => {
 		delete obj.fixture[i]["value"];
 	}
 	if (e.key === "Scale") {
-		obj.fixture[i]["interiorScale"] = e.value;
+		obj["interiorScale"] = e.value;
 		delete obj.fixture[i]["key"];
 		delete obj.fixture[i]["value"];
 	}
