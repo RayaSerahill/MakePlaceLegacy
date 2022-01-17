@@ -30,7 +30,7 @@
 				delete obj.fixture[i]["value"];
 			}
 			if (e.key === "Scale") {
-				obj.fixture[i]["interiorScale"] = e.value;
+				obj["interiorScale"] = e.value;
 				delete obj.fixture[i]["key"];
 				delete obj.fixture[i]["value"];
 			}
@@ -40,7 +40,7 @@
 		obj.interiorFurniture = obj.furniture;
 		delete obj.furniture;
 		let data = JSON.stringify(obj, null, 2);
-		download("build.json", data);
+		download("build.js", data);
 	}
 
 
